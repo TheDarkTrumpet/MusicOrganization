@@ -18,8 +18,9 @@ List<string> availableArtists = GetAvailableArtists(DirectoryToParse);
 Console.WriteLine("Available Artists: " + availableArtists.Count());
 
 Dictionary<string, Dictionary<string, int>> artistAlbumCount = GenerateAlbumListFromAuthors(DirectoryToParse, availableArtists);
+List<Tuple<string, int>> artistCount = GenerateArtistCount(artistAlbumCount);
 
-artistAlbumCount.Dump();
+artistCount.Dump();
 }
 
 public List<string> GetAvailableArtists(string baseDirectory)
@@ -62,16 +63,29 @@ Dictionary<string, Dictionary<string, int>> GenerateAlbumListFromAuthors(string 
 		string directoryToCheck = baseDir + "\\" + artist;
 		List<string> albums = Directory.GetDirectories(directoryToCheck).Select(x => x.Replace("\r\n", "")).ToList();
 		Dictionary<string, int> artistAlbums = new Dictionary<string, int>();
-		
+
 		foreach (string album in albums)
 		{
 			List<string> tracks = Directory.GetFiles(album).Select(x => x.Replace("\r\n", "")).ToList();
 			if (tracks.Count > 0)
 			{
 				string albumWithoutDir = album.Split('\\').Last();
-				artistAlbums.Add(album, tracks.Count());
+				artistAlbums.Add(albumWithoutDir, tracks.Count());
 			}
 		}
 		dictionaryToReturn.Add(artist, artistAlbums);
 	}
 	return dictionaryToReturn;
+}
+
+List<Tuple<string, int>> GenerateArtistCount(Dictionary<string, Dictionary<string, int>> input)
+{
+	List<Tuple<string, int>> countToReturn = new List<System.Tuple<string, int>>();
+
+	foreach (string s in input.Keys)
+	{
+		int trackCount = input[s].Select((key, value) => value).Sum();
+		countToReturn.Add(new Tuple<string, int>(s, trackCount));
+	}
+	
+	return countToReturn.OrderByDescending(m => m.Item2).ToList();
