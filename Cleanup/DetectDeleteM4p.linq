@@ -67,7 +67,9 @@ void ProcessEmptyDirectory(string directoryName, bool deleteDirectory = false)
 	{
 		ProcessEmptyDirectory(directory, deleteDirectory);
 	}
+	
 	if (fileEntries.Count == 0 && subdirectoryEntries.Count == 0)
 	{
 		Console.WriteLine("Deleting directory: " + directoryName);
+		Directory.Delete(directoryName);  //Shouldn't need the true here
 	}
