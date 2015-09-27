@@ -43,3 +43,4 @@ Comments are helpful, feel free to make an issue if you want something specifica
 
 ## Scripts and purpose
 _Cleanup/DetectDeleteM4p.linq_ - A linqpad script that does exactly what it says.  The goal of this is to take a folder used by iTunes and remove all the protected content.  This also cleans up the empty directories in the end, too.
+_Analysis/LargestUniqArtists.linq_ - A linqpad script that can be run nearly any time.  The goal of this script is to determine artists with the greatest number of tracks associated with them.  The reason for this is that some artists may be easy pickers when it comes to organizing

@@ -20,6 +20,7 @@ Console.WriteLine("Available Artists: " + availableArtists.Count());
 Dictionary<string, Dictionary<string, int>> artistAlbumCount = GenerateAlbumListFromAuthors(DirectoryToParse, availableArtists);
 List<Tuple<string, int>> artistCount = GenerateArtistCount(artistAlbumCount);
 
+//artistAlbumCount.Dump();
 artistCount.Dump();
 }
 
@@ -84,7 +85,9 @@ List<Tuple<string, int>> GenerateArtistCount(Dictionary<string, Dictionary<strin
 
 	foreach (string s in input.Keys)
 	{
-		int trackCount = input[s].Select((key, value) => value).Sum();
+		Dictionary<string,int> albumTracks = input[s];
+		List<int> albumCounts = albumTracks.Select(k => k.Value).ToList();
+		int trackCount = albumCounts.Sum();
 		countToReturn.Add(new Tuple<string, int>(s, trackCount));
 	}
 	
