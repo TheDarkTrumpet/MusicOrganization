@@ -40,3 +40,6 @@ Along with what I mentioned in the above section, I also want to make use of iTu
 If you stumble across this, and it's still in active development (which will be for awhile - and I'll update this line when that changes), feel free to post bugs and pull requests.  I am a bit focused on code quality, repeatability, and overall features.  If you implement features, I'll probably pull it in then make it similar to the rest of the features here, just to newer people have to do less context switching.  If it's refactoring existing code, I'll likely test it before incorporating it totally.
 
 Comments are helpful, feel free to make an issue if you want something specifically addressed.
+
+## Scripts and purpose
+_Cleanup/DetectDeleteM4p.linq_ - A linqpad script that does exactly what it says.  The goal of this is to take a folder used by iTunes and remove all the protected content.  This also cleans up the empty directories in the end, too.
