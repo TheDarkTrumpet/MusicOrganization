@@ -44,7 +44,7 @@ void ProcessDirectory(string directoryName, bool deleteDirectory = false)
 	string[] subdirectoryEntries = Directory.GetDirectories(directoryName);
 	foreach (string subdirectory in subdirectoryEntries)
 	{
-		Console.WriteLine("Processing Recursively -- Directory Found: " + subdirectory);
+		//Console.WriteLine("Processing Recursively -- Directory Found: " + subdirectory);
 		ProcessDirectory(subdirectory, deleteDirectory);
 	}
 
@@ -58,8 +58,16 @@ void ProcessDirectory(string directoryName, bool deleteDirectory = false)
 void ProcessEmptyDirectory(string directoryName, bool deleteDirectory = false)
 {
 	// Process the list of files found in the directory.
-	string[] fileEntries = Directory.GetFiles(directoryName);
-	string matchedDirectory = "";
+	List<string> fileEntries = Directory.GetFiles(directoryName).ToList();
 	
 	// Recurse into subdirectories of this directory.
-	string[] subdirectoryEntries = Directory.GetDirectories(directoryName);
+	List<string> subdirectoryEntries = Directory.GetDirectories(directoryName).ToList();
+
+	foreach (string directory in subdirectoryEntries)
+	{
+		ProcessEmptyDirectory(directory, deleteDirectory);
+	}
+	if (fileEntries.Count == 0 && subdirectoryEntries.Count == 0)
+	{
+		Console.WriteLine("Deleting directory: " + directoryName);
+	}
