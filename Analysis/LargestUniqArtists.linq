@@ -16,6 +16,10 @@ string DirectoryToParse = @"Z:\Music\Uncategorized Music\";
 
 List<string> availableArtists = GetAvailableArtists(DirectoryToParse);
 Console.WriteLine("Available Artists: " + availableArtists.Count());
+
+Dictionary<string, Dictionary<string, int>> artistAlbumCount = GenerateAlbumListFromAuthors(DirectoryToParse, availableArtists);
+
+artistAlbumCount.Dump();
 }
 
 public List<string> GetAvailableArtists(string baseDirectory)
@@ -24,14 +28,14 @@ public List<string> GetAvailableArtists(string baseDirectory)
 	List<string> artists = Directory.GetDirectories(baseDirectory).Select(x => x.Replace("\r\n", "")).ToList();
 	List<string> artistsToReturn = new List<string>();
 	List<string> artistsToIgnore = new List<string>();
-	
+
 	foreach (string artist in artists)
 	{
 		if (artistsToIgnore.Contains(artist))
 		{
 			continue;
 		}
-		
+
 		string spacedArtist = artist + " ";
 		List<string> matchingArtists = artists.Where(x => x != artist && x.Contains(spacedArtist)).ToList();
 
@@ -44,5 +48,28 @@ public List<string> GetAvailableArtists(string baseDirectory)
 		
 		artistsToReturn.Add(artist);
 	}
-	
+
 	return artistsToReturn;
+}
+
+Dictionary<string, Dictionary<string, int>> GenerateAlbumListFromAuthors(string baseDir, List<string> artists)
+{
+	Dictionary<string, Dictionary<string, int>> dictionaryToReturn = new Dictionary<string, System.Collections.Generic.Dictionary<string, int>>();
+
+	foreach (string artist in artists)
+	{
+		string directoryToCheck = baseDir + "\\" + artist;
+		List<string> albums = Directory.GetDirectories(directoryToCheck).Select(x => x.Replace("\r\n", "")).ToList();
+		Dictionary<string, int> artistAlbums = new Dictionary<string, int>();
+		
+		foreach (string album in albums)
+		{
+			List<string> tracks = Directory.GetFiles(album).Select(x => x.Replace("\r\n", "")).ToList();
+			if (tracks.Count > 0)
+			{
+				artistAlbums.Add(album, tracks.Count());
+			}
+		}
+		dictionaryToReturn.Add(artist, artistAlbums);
+	}
+	return dictionaryToReturn;
