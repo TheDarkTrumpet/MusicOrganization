@@ -5,14 +5,14 @@
 	I define this as:
 	1) A single author of a album - as in, the authors name only appears once.
 	2) Ordered by the largest # of songs/albums for the user.
-	This is purely a reporting function, and doesn't actually do anything specifically itself.  Manual
-	intervention is useful here, since I can take care of large chunks of my uncategorized library.
+	This Is purely a reporting function, And doesn't actually do anything specifically itself.  Manual
+	intervention Is useful here, since I can take care of large chunks of my uncategorized library.
 	
 	This script ASSUMES the following data structure under the 'directorytoparse'
 	<artist>/<album>/files
 */
 
-string DirectoryToParse = @"Z:\Music\Uncategorized Music\";
+String DirectoryToParse = @"Z:\Music\Uncategorized Music\";
 
 List<string> availableArtists = GetAvailableArtists(DirectoryToParse);
 Console.WriteLine("Available Artists: " + availableArtists.Count());
@@ -46,7 +46,8 @@ public List<string> GetAvailableArtists(string baseDirectory)
 			continue;
 		}
 		
-		artistsToReturn.Add(artist);
+		string artistWithoutDir = artist.Split('\\').Last();
+		artistsToReturn.Add(artistWithoutDir);
 	}
 
 	return artistsToReturn;
@@ -67,6 +68,7 @@ Dictionary<string, Dictionary<string, int>> GenerateAlbumListFromAuthors(string 
 			List<string> tracks = Directory.GetFiles(album).Select(x => x.Replace("\r\n", "")).ToList();
 			if (tracks.Count > 0)
 			{
+				string albumWithoutDir = album.Split('\\').Last();
 				artistAlbums.Add(album, tracks.Count());
 			}
 		}
