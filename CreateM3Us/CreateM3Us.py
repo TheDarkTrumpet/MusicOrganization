@@ -2,7 +2,7 @@ import os
 
 incomingDirectory = 'C:\\temp'
 
-for subdir, dirs, files in os.walk(incomingDirectory):
+for subdir, dirs, files in os.walk(incomingDirectory): #What does is.walk do
     for file in files:
         #print os.path.join(subdir, file)
         filepath = subdir + os.sep + file
