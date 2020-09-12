@@ -6,7 +6,7 @@ Use: python createm3u <base_path>
 """
 
 import click
-from createm3u import createm3ulib
+from createm3ulib import createm3ulib
 
 def print_help(ctx, opts, args):
     if args is False:
@@ -16,10 +16,9 @@ def print_help(ctx, opts, args):
 
 @click.command()
 @click.argument('basedir')
-@click.pass_context
 def main(basedir):
     cm3u = createm3ulib(basedir)
-    
+    cm3u.do()
 
 if __name__ == '__main__':
     main()
