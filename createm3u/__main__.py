@@ -14,7 +14,7 @@ def print_help(ctx, opts, args):
     ctx.exit()
 
 @click.command()
-@click.argument('basedir', help="Base directory to start search from")
+@click.argument('basedir')
 @click.pass_context
 def main(basedir):
     pass

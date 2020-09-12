@@ -154,3 +154,4 @@ COPAssetManagement.WebUI/Scripts/AssetManagement/*.js.map
 .vs
 .idea
 
+__pycache__
