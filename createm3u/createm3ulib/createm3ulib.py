@@ -42,9 +42,9 @@ class createm3ulib:
     def save_m3u(self, basedir, files):
         cur_directory_name = self.get_curdirectory_name(basedir)
         relative_files = list(map(lambda x: x.replace(basedir + "/", "\n"), files))
-        m3u_file = basedir + "/" + cur_directory_name + ".m3u"
+        m3u_file = f'{basedir}/{cur_directory_name}.m3u'
 
-        print("Saving M3U file in: " + m3u_file)
+        print(f'Saving M3U file in: {m3u_file}')
 
         if(self.dryrun == False):
             file = open(m3u_file, 'w')
