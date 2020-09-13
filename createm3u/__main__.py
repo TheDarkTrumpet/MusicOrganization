@@ -16,8 +16,9 @@ def print_help(ctx, opts, args):
 
 @click.command()
 @click.argument('basedir')
-def main(basedir):
-    cm3u = createm3ulib(basedir)
+@click.option("-d", "--dryrun", is_flag=True, help="Parse but not create m3us")
+def main(basedir, dryrun):
+    cm3u = createm3ulib(basedir, dryrun)
     cm3u.do()
 
 if __name__ == '__main__':
