@@ -30,6 +30,8 @@ class createm3ulib:
 
                 if(file_ext not in self.file_exclude and file not in self.file_exclude):
                     found_files.append(filepath)
+        if(len(found_files) > 0):
+            self.save_m3u(current_dir, found_files)
 
     def get_parentdir(self, directory):
         return '/'.join(directory.split('/')[0:-1])
